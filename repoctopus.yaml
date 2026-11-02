@@ -34,7 +34,8 @@ profiles:
         repository: backend
         dependsOn: []
         required: true
-        covers: []
+        covers:
+          - "*"
         type: command
         executable: mvn
         args:
@@ -47,7 +48,8 @@ profiles:
         repository: web-design
         dependsOn: []
         required: true
-        covers: []
+        covers:
+          - "*"
         type: command
         executable: npm
         args:
@@ -61,7 +63,8 @@ profiles:
         dependsOn:
           - web-design-typecheck
         required: true
-        covers: []
+        covers:
+          - "*"
         type: command
         executable: npm
         args:
@@ -75,7 +78,8 @@ profiles:
         dependsOn:
           - web-plugin-build
         required: true
-        covers: []
+        covers:
+          - "*"
         type: command
         executable: npm
         args:
@@ -89,7 +93,8 @@ profiles:
         dependsOn:
           - web-design-build
         required: true
-        covers: []
+        covers:
+          - "*"
         type: command
         executable: npm
         args:
@@ -103,7 +108,8 @@ profiles:
         dependsOn:
           - web-plugin-typecheck
         required: true
-        covers: []
+        covers:
+          - "*"
         type: command
         executable: npm
         args:
