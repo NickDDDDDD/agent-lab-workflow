@@ -72,7 +72,8 @@ profiles:
         cache: false
       - id: web-front-build
         repository: web-front
-        dependsOn: []
+        dependsOn:
+          - web-plugin-build
         required: true
         covers: []
         type: command
@@ -85,7 +86,8 @@ profiles:
         cache: false
       - id: web-plugin-typecheck
         repository: web-plugin
-        dependsOn: []
+        dependsOn:
+          - web-design-build
         required: true
         covers: []
         type: command
