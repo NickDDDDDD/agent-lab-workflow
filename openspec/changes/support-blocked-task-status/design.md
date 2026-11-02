@@ -36,7 +36,21 @@
 
 `web-front` 增加一个 `blocked` 任务样例；结合 `web-design` 和 `web-plugin` 的类型检查/构建命令，形成轻量的跨仓契约验证，不为本次验收引入额外测试框架。
 
+### 4. 保持三个包 seam 的 Interface 单向收敛
+
+`web-design` 的 `StatusTone` 是视觉语气 Module 的 Interface，隐藏具体样式实现；`web-plugin` 的 `Task.status` 是任务展示 Module 的 Interface，只把合法任务状态映射到视觉语气；`web-front` fixture 作为真实消费者跨越这两个 seam。实现顺序从设计系统到插件再到应用，避免调用方各自复制阻塞态样式或字符串。
+
+替代方案是在 `web-front` 直接判断 `blocked` 并传入临时 class，但这会形成浅层透传并把视觉知识泄露到消费端，因此不采用。
+
 ## Risks / Trade-offs
 
 - [Risk] 三个仓库分别维护字面量联合，未来可能再次漂移 → 依靠 TypeScript 消费链路和跨仓构建同时验证。
 - [Risk] 阻塞态颜色在不同主题下对比度不足 → 保留明确文本标签，并选择与当前浅色徽标体系一致的高对比前景色。
+
+## Migration Plan
+
+1. 先扩展 `web-design` 的公共语气 Interface，使下游可引用阻塞态。
+2. 再扩展 `web-plugin` 的任务 Interface 与文本映射。
+3. 最后在 `web-front` fixture 中消费新状态并执行跨仓构建。
+
+任一步失败都可以回退该仓对应提交；本次没有数据迁移、依赖升级或后端部署顺序。
